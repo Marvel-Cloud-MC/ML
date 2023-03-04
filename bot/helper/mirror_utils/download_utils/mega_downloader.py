@@ -3,7 +3,13 @@ from random import SystemRandom
 from string import ascii_letters, digits
 
 from aiofiles.os import makedirs
-from mega import MegaApi, MegaError, MegaListener, MegaRequest, MegaTransfer
+#from mega import MegaApi, MegaError, MegaListener, MegaRequest, MegaTransfer
+
+MegaApi = "nakku"
+MegaError = "Sappu"
+MegaListener = "oombu"
+MegaRequest = "othaa"
+MegaTransfer = "Punda"
 
 from bot import (LOGGER, config_dict, download_dict, download_dict_lock,
                  non_queued_dl, non_queued_up, queue_dict_lock, queued_dl)
