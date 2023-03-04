@@ -21,7 +21,7 @@ from bot.helper.mirror_utils.download_utils.aria2_download import add_aria2c_dow
 from bot.helper.mirror_utils.download_utils.clonner import start_clone
 from bot.helper.mirror_utils.download_utils.direct_link_generator import direct_link_generator
 from bot.helper.mirror_utils.download_utils.gd_downloader import add_gd_download
-from bot.helper.mirror_utils.download_utils.mega_downloader import add_mega_download
+#from bot.helper.mirror_utils.download_utils.mega_downloader import add_mega_download
 from bot.helper.mirror_utils.download_utils.qbit_downloader import add_qb_torrent
 from bot.helper.mirror_utils.download_utils.telegram_downloader import TelegramDownloadHelper
 from bot.helper.mirror_utils.upload_utils.gdriveTools import GoogleDriveHelper
@@ -336,8 +336,7 @@ Number should be always before |newname or pswd:
         else:
             await add_gd_download(link, path, listener, name)
     elif is_mega_link(link):
-        listener.ismega = await sendMessage(message, "<b>Mega link detected.\nThis might take a minute.</b>")
-        await add_mega_download(link, f'{path}/', listener, name)
+        await sendMessage(message, "<b>Mega link detected.\nThis is blocked</b>")
     elif isQbit:
         await add_qb_torrent(link, path, listener, ratio, seed_time)
     else:
