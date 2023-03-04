@@ -1,7 +1,7 @@
 from bot import (bot_loop, config_dict, non_queued_dl, non_queued_up,
                  queue_dict_lock, queued_dl, queued_up)
 from bot.helper.mirror_utils.download_utils.gd_downloader import add_gd_download
-from bot.helper.mirror_utils.download_utils.mega_downloader import add_mega_download
+#from bot.helper.mirror_utils.download_utils.mega_downloader import add_mega_download
 from bot.helper.mirror_utils.download_utils.telegram_downloader import TelegramDownloadHelper
 from bot.helper.mirror_utils.download_utils.yt_dlp_download_helper import YoutubeDLHelper
 
@@ -9,8 +9,6 @@ def start_dl_from_queued(uid):
     dl = queued_dl[uid]
     if dl[0] == 'gd':
         bot_loop.create_task(add_gd_download(dl[1], dl[2], dl[3], dl[4], True))
-    elif dl[0] == 'mega':
-        bot_loop.create_task(add_mega_download(dl[1], dl[2], dl[3], dl[4], True))
     elif dl[0] == 'yt':
         ydl = YoutubeDLHelper(dl[7])
         bot_loop.create_task(ydl.add_download(dl[1], dl[2], dl[3], dl[4], dl[5], dl[6], True))
