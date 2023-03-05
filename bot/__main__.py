@@ -82,45 +82,6 @@ async def stats(client, message):
             f'<b>Total Upload:</b> <code>{sent}</code>\n<b>Total Download:</b> <code>{recv}</code>\n'
     await sendMessage(message, stats)
 
-async def start(client, message):
-    if config_dict['DM_MODE']:
-        start_string = 'Bot Started.\n' \
-                    'Now I will send your files or links here.\n'
-    else:
-        start_string = 'Hey, Welcome dear. \n' \
-                       'I can Mirror all your links To Google Drive! \n' \
-                       'Unfortunately you are not authorized!\n' \
-                       'Please deploy your own BOT!' \
-                       'Created With Love by @Z_Mirror . \n' \
-                       'Thank You!'
-    await sendMessage(message, start_string)
-
-async def restart(client, message):
-    restart_message = await sendMessage(message, "Restarting...")
-    if scheduler.running:
-        scheduler.shutdown(wait=False)
-    if Interval:
-        Interval[0].cancel()
-        Interval.clear()
-    if QbInterval:
-        QbInterval[0].cancel()
-        QbInterval.clear()
-    await sync_to_async(clean_all)
-    await (await create_subprocess_exec('pkill', '-9', '-f', '-e', 'gunicorn|aria2c|qbittorrent-nox|ffmpeg')).wait()
-    await (await create_subprocess_exec('python3', 'update.py')).wait()
-    async with aiopen(".restartmsg", "w") as f:
-        await f.truncate(0)
-        await f.write(f"{restart_message.chat.id}\n{restart_message.id}\n")
-    osexecl(executable, executable, "-m", "bot")
-
-async def ping(client, message):
-    start_time = int(round(time() * 1000))
-    reply = await sendMessage(message, "Starting Ping")
-    end_time = int(round(time() * 1000))
-    await editMessage(reply, f'{end_time - start_time} ms')
-
-async def log(client, message):
-    await sendFile(message, 'log.txt')
 
 help_string = f'''
 NOTE: Try each command without any argument to see more detalis.
@@ -169,6 +130,47 @@ NOTE: Try each command without any argument to see more detalis.
 /{BotCommands.ClearLocalsCommand}: Clear {BotCommands.EvalCommand} or {BotCommands.ExecCommand} locals (Only Owner).
 /{BotCommands.RssCommand}: RSS Menu.
 '''
+
+async def start(client, message):
+    if config_dict['DM_MODE']:
+        start_string = 'Bot Started.\n' \
+                    'Now I will send your files or links here.\n'
+    else:
+        start_string = 'Hey, Welcome dear. \n' \
+                       'I can Mirror all your links To Google Drive! \n' \
+                       'Unfortunately you are not authorized!\n' \
+                       'Please deploy your own BOT!' \
+                       'Created With Love by @Z_Mirror . \n' \
+                       'Thank You!'
+    await sendMessage(message, help_string)
+
+async def restart(client, message):
+    restart_message = await sendMessage(message, "Restarting...")
+    if scheduler.running:
+        scheduler.shutdown(wait=False)
+    if Interval:
+        Interval[0].cancel()
+        Interval.clear()
+    if QbInterval:
+        QbInterval[0].cancel()
+        QbInterval.clear()
+    await sync_to_async(clean_all)
+    await (await create_subprocess_exec('pkill', '-9', '-f', '-e', 'gunicorn|aria2c|qbittorrent-nox|ffmpeg')).wait()
+    await (await create_subprocess_exec('python3', 'update.py')).wait()
+    async with aiopen(".restartmsg", "w") as f:
+        await f.truncate(0)
+        await f.write(f"{restart_message.chat.id}\n{restart_message.id}\n")
+    osexecl(executable, executable, "-m", "bot")
+
+async def ping(client, message):
+    start_time = int(round(time() * 1000))
+    reply = await sendMessage(message, "Starting Ping")
+    end_time = int(round(time() * 1000))
+    await editMessage(reply, f'{end_time - start_time} ms')
+
+async def log(client, message):
+    await sendFile(message, 'log.txt')
+
 
 async def bot_help(client, message):
     await sendMessage(message, help_string)
