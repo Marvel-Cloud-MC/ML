@@ -148,6 +148,6 @@ async def _auto_cancel(msg, msg_id):
         del cancel_listener[msg_id]
         await editMessage(msg, 'Timed out!')
 
-bot.add_handler(MessageHandler(cancel_mirror, filters=command(BotCommands.CancelMirror))
+bot.add_handler(MessageHandler(cancel_mirror, filters=command(BotCommands.CancelMirror)))
 bot.add_handler(MessageHandler(cancell_all_buttons, filters=command(BotCommands.CancelAllCommand) & CustomFilters.authorized))
 bot.add_handler(CallbackQueryHandler(cancel_all_update, filters=regex("^cnall")))
