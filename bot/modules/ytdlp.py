@@ -432,8 +432,8 @@ async def ytdlleech(client, message):
 async def ytdlZipleech(client, message):
     _ytdl(client, message, True, True)
 
-bot.add_handler(MessageHandler(ytdl, filters=command(BotCommands.YtdlCommand))
-bot.add_handler(MessageHandler(ytdlZip, filters=command(BotCommands.YtdlZipCommand))
-bot.add_handler(MessageHandler(ytdlleech, filters=command(BotCommands.YtdlLeechCommand))
-bot.add_handler(MessageHandler(ytdlZipleech, filters=command(BotCommands.YtdlZipLeechCommand))
+bot.add_handler(MessageHandler(ytdl, filters=command(BotCommands.YtdlCommand)))
+bot.add_handler(MessageHandler(ytdlZip, filters=command(BotCommands.YtdlZipCommand)))
+bot.add_handler(MessageHandler(ytdlleech, filters=command(BotCommands.YtdlLeechCommand)))
+bot.add_handler(MessageHandler(ytdlZipleech, filters=command(BotCommands.YtdlZipLeechCommand)))
 bot.add_handler(CallbackQueryHandler(select_format, filters=regex("^qu")))
