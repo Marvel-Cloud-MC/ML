@@ -55,4 +55,4 @@ async def rmdbNode(client, message):
 
 
 if DATABASE_URL:
-    bot.add_handler(MessageHandler(rmdbNode, filters=command(BotCommands.RmdbCommand) & CustomFilters.authorized))
+    bot.add_handler(MessageHandler(rmdbNode, filters=command(BotCommands.RmdbCommand))
